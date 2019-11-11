@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "154033564279",
+    "firebase_url": "https://e-kartygoraczkowe.firebaseio.com",
+    "project_id": "e-kartygoraczkowe",
+    "storage_bucket": "e-kartygoraczkowe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154033564279:android:a5baf9892c754859bbf472",
+        "android_client_info": {
+          "package_name": "com.example.e_kartygorczkowe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154033564279-3sh9sn8ecnqbsi9eiqveh503iaenak4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRLMUpDPAvCdcEobyf4pLZgTIrlWLgW5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154033564279-3sh9sn8ecnqbsi9eiqveh503iaenak4r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

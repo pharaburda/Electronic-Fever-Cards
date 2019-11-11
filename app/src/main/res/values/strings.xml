@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">E-Karty Gorączkowe</string>
+
+    <string-array name="user_types">
+        <item>Doctor</item>
+        <item>Nurse</item>
+    </string-array>
 </resources>
