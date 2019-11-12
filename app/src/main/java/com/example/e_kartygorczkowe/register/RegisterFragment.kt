@@ -6,49 +6,50 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.e_kartygorczkowe.R
+import com.example.e_kartygorczkowe.databinding.RegisterFragmentBinding
+import com.example.e_kartygorczkowe.entity.User
 import com.google.firebase.firestore.FirebaseFirestore
 import timber.log.Timber
 
 
 class RegisterFragment : Fragment() {
-    private val dbInstance: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     companion object {
         fun newInstance() = RegisterFragment()
     }
 
     private lateinit var viewModel: RegisterViewModel
+    private lateinit var binding: RegisterFragmentBinding
+    private var user = User("", "")
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.register_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.register_fragment, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.state.observe(this, Observer<State> { state ->
+            onStateChanged(state)
+        })
+        binding.user = this.user
+        binding.btnRegister.setOnClickListener { viewModel.register(user) }
     }
 
-    fun addUser() {
-        // Create a new user with a first and last name
-        val user = hashMapOf(
-            "Imię" to "Ada",
-            "Nazwisko" to "Nowak"
-        )
-
-        // Add a new document with a generated ID
-        dbInstance.collection("Lekarze")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Timber.d("DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Timber.e(e)
-            }
+    private fun onStateChanged(state: State) = when (state) {
+        is State.Success -> {
+        }
+        is State.Error -> {
+        }
     }
 
 }
