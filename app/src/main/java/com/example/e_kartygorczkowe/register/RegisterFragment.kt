@@ -11,9 +11,11 @@ import androidx.lifecycle.Observer
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.RegisterFragmentBinding
 import com.example.e_kartygorczkowe.entity.User
-import com.google.firebase.firestore.FirebaseFirestore
-import timber.log.Timber
-
+import android.widget.Toast
+import com.example.e_kartygorczkowe.MainActivity
+import com.example.e_kartygorczkowe.entity.UserType
+import com.example.e_kartygorczkowe.login.LoginFragment
+import com.example.e_kartygorczkowe.replaceFragment
 
 class RegisterFragment : Fragment() {
 
@@ -23,7 +25,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var viewModel: RegisterViewModel
     private lateinit var binding: RegisterFragmentBinding
-    private var user = User("", "")
+    private var user = User("", "", UserType.None, "", "")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +49,21 @@ class RegisterFragment : Fragment() {
 
     private fun onStateChanged(state: State) = when (state) {
         is State.Success -> {
+            Toast.makeText(
+                context,
+                "Registration succeded",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            val loginFragment = LoginFragment.newInstance()
+            (activity as MainActivity).replaceFragment(loginFragment, R.id.main_frame)
         }
         is State.Error -> {
+            Toast.makeText(
+                context,
+                "Some error occurred",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

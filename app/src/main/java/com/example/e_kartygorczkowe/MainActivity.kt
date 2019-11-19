@@ -3,9 +3,6 @@ package com.example.e_kartygorczkowe
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.e_kartygorczkowe.register.RegisterFragment
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val registerFragment = RegisterFragment()
+        val registerFragment = RegisterFragment.newInstance()
         addFragment(registerFragment, R.id.main_frame)
     }
 
