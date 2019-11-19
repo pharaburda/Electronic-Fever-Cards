@@ -2,6 +2,7 @@ package com.example.e_kartygorczkowe.register
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.repository.FirebaseRepository
 import io.reactivex.rxjava3.core.CompletableObserver
@@ -31,9 +32,4 @@ class RegisterViewModel : ViewModel() {
         )
     }
 
-}
-
-sealed class State {
-    object Success : State()
-    object Error : State()
 }

@@ -35,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
             android:text="@={user.login}"/>
 
         <TextView
@@ -48,6 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
             android:text="@={user.password}"/>
 
         <TextView
@@ -63,10 +67,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:entries="@array/user_types"
+            android:onItemSelected="@{(parent,view,pos,id)->user.onSelectItem(parent,view,pos,id)}"
             android:gravity="center" />
 
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login" />

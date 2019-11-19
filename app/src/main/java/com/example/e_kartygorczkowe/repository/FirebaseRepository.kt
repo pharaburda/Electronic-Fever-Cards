@@ -29,4 +29,26 @@ class FirebaseRepository {
                 }
 
         }
+
+    fun login(user: User): Completable = Completable.create{emitter ->
+        val collectionPath = when (user.userType) {
+            UserType.Doctor -> "Doctors"
+            UserType.Nurse -> "Nurser"
+            UserType.None -> ""
+        }
+        dbInstance.collection(collectionPath)
+            .whereEqualTo("login", user.login)
+            .whereEqualTo("password", user.password)
+            .get()
+            .addOnSuccessListener { documents ->
+                Timber.d("${documents.first().id} => ${documents.first().data}")
+                emitter.onComplete()
+            }
+            .addOnFailureListener { exception ->
+                Timber.e(exception)
+                emitter.onError(exception)
+            }
+    }
+
+
 }
