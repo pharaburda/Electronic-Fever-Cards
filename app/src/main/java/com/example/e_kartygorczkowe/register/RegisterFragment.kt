@@ -12,11 +12,9 @@ import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.RegisterFragmentBinding
 import com.example.e_kartygorczkowe.entity.User
 import android.widget.Toast
-import com.example.e_kartygorczkowe.MainActivity
+import androidx.navigation.fragment.findNavController
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.UserType
-import com.example.e_kartygorczkowe.login.LoginFragment
-import com.example.e_kartygorczkowe.replaceFragment
 
 class RegisterFragment : Fragment() {
 
@@ -56,8 +54,8 @@ class RegisterFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            val loginFragment = LoginFragment.newInstance()
-            (activity as MainActivity).replaceFragment(loginFragment, R.id.main_frame)
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+
         }
         is State.Error -> {
             Toast.makeText(

@@ -9,14 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.example.e_kartygorczkowe.MainActivity
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.LoginFragmentBinding
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
-import com.example.e_kartygorczkowe.replaceFragment
-
 
 class LoginFragment : Fragment() {
 

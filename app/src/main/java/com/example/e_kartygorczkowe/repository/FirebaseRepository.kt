@@ -13,7 +13,7 @@ class FirebaseRepository {
         Completable.create { emitter ->
             val collectionPath = when (user.userType) {
                 UserType.Doctor -> "Doctors"
-                UserType.Nurse -> "Nurser"
+                UserType.Nurse -> "Nurses"
                 UserType.None -> ""
             }
 
@@ -49,6 +49,4 @@ class FirebaseRepository {
                 emitter.onError(exception)
             }
     }
-
-
 }
