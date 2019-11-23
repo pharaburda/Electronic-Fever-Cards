@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
         is State.Error -> {
             Toast.makeText(
                 context,
-                "Some error occurred",
+                "Login failed",
                 Toast.LENGTH_SHORT
             ).show()
         }

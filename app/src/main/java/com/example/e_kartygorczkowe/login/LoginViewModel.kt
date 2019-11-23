@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.repository.FirebaseRepository
-import io.reactivex.rxjava3.core.CompletableObserver
-import io.reactivex.rxjava3.disposables.Disposable
-import timber.log.Timber
+import io.reactivex.rxjava3.observers.DisposableMaybeObserver
 
 class LoginViewModel : ViewModel() {
 
@@ -15,19 +13,20 @@ class LoginViewModel : ViewModel() {
     val state: MutableLiveData<State> by lazy {
         MutableLiveData<State>()
     }
+
     fun login(user: User) {
-        repository.login(user).subscribe (
-            object : CompletableObserver {
-                override fun onComplete() {
+        repository.login(user).subscribe(
+            object : DisposableMaybeObserver<User>() {
+                override fun onSuccess(t: User?) {
                     state.value = State.Success
+                }
+
+                override fun onComplete() {
+                    state.value = State.Error
                 }
 
                 override fun onError(e: Throwable?) {
                     state.value = State.Error
-                }
-
-                override fun onSubscribe(d: Disposable?) {
-                    // do nothing
                 }
             }
         )

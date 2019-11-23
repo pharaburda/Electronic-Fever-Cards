@@ -4,6 +4,7 @@ import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 import timber.log.Timber
 
 class FirebaseRepository {
@@ -30,7 +31,7 @@ class FirebaseRepository {
 
         }
 
-    fun login(user: User): Completable = Completable.create{emitter ->
+    fun login(user: User): Maybe<User> = Maybe.create{ emitter ->
         val collectionPath = when (user.userType) {
             UserType.Doctor -> "Doctors"
             UserType.Nurse -> "Nurser"
@@ -41,8 +42,11 @@ class FirebaseRepository {
             .whereEqualTo("password", user.password)
             .get()
             .addOnSuccessListener { documents ->
-                Timber.d("${documents.first().id} => ${documents.first().data}")
-                emitter.onComplete()
+                if (documents.isEmpty) {
+                    emitter.onComplete()
+                } else {
+                    emitter.onSuccess(documents.first() as User)
+                }
             }
             .addOnFailureListener { exception ->
                 Timber.e(exception)
