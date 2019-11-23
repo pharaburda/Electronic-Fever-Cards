@@ -18,7 +18,11 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.e_kartygorczkowe.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_mainDoctorFragment"
+            app:destination="@id/mainDoctorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.e_kartygorczkowe.register.RegisterFragment"
@@ -28,4 +32,16 @@
             app:popUpTo="@id/chooseUserFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mainDoctorFragment"
+        android:name="com.example.e_kartygorczkowe.doctor.mainScreen.MainDoctorFragment"
+        android:label="MainDoctorFragment" >
+        <action
+            android:id="@+id/action_mainDoctorFragment_to_measurementsHistoryFragment"
+            app:destination="@id/measurementsHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/measurementsHistoryFragment"
+        android:name="com.example.e_kartygorczkowe.doctor.measurementsHistory.MeasurementsHistoryFragment"
+        android:label="MeasurementsHistoryFragment" />
 </navigation>

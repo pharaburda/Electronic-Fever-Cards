@@ -14,7 +14,6 @@ import com.example.e_kartygorczkowe.entity.User
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.e_kartygorczkowe.entity.State
-import com.example.e_kartygorczkowe.entity.UserType
 
 class RegisterFragment : Fragment() {
 
@@ -24,7 +23,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var viewModel: RegisterViewModel
     private lateinit var binding: RegisterFragmentBinding
-    private var user = User("", "", UserType.None, "", "")
+    private var user = User()
 
     override fun onCreateView(
         inflater: LayoutInflater,

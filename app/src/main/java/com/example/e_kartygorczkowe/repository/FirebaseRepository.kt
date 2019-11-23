@@ -1,5 +1,7 @@
 package com.example.e_kartygorczkowe.repository
 
+import com.example.e_kartygorczkowe.entity.Measurement
+import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,7 +33,7 @@ class FirebaseRepository {
 
         }
 
-    fun login(user: User): Maybe<User> = Maybe.create{ emitter ->
+    fun login(user: User): Maybe<User> = Maybe.create { emitter ->
         val collectionPath = when (user.userType) {
             UserType.Doctor -> "Doctors"
             UserType.Nurse -> "Nurser"
@@ -45,7 +47,7 @@ class FirebaseRepository {
                 if (documents.isEmpty) {
                     emitter.onComplete()
                 } else {
-                    emitter.onSuccess(documents.first() as User)
+                    emitter.onSuccess(documents.first().toObject(User::class.java))
                 }
             }
             .addOnFailureListener { exception ->
@@ -53,4 +55,22 @@ class FirebaseRepository {
                 emitter.onError(exception)
             }
     }
+
+    fun getMeasurementsHistory(): Maybe<List<Measurement>> =
+        Maybe.create { emitter ->
+            dbInstance.collection("Measurements")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.isEmpty) {
+                        emitter.onComplete()
+                    } else {
+                        emitter.onSuccess(documents.toObjects(Measurement::class.java))
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Timber.e(exception)
+                    emitter.onError(exception)
+                }
+        }
+
 }

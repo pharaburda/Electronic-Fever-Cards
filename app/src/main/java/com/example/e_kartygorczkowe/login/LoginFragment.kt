@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.LoginFragmentBinding
 import com.example.e_kartygorczkowe.entity.State
@@ -23,7 +24,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: LoginFragmentBinding
-    private var user = User("", "", UserType.None, "", "")
+    private var user = User()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,21 +45,25 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener { viewModel.login(user) }
     }
 
-    private fun onStateChanged(state: State) = when (state) {
-        is State.Success -> {
-            Toast.makeText(
-                context,
-                "Login succeded",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        is State.Error -> {
-            Toast.makeText(
-                context,
-                "Login failed",
-                Toast.LENGTH_SHORT
-            ).show()
+    private fun onStateChanged(state: State) {
+        when (state) {
+            is State.Success -> {
+                Toast.makeText(
+                    context,
+                    "Login succeded",
+                    Toast.LENGTH_SHORT
+                ).show()
+                if (this.user.userType == UserType.Doctor) {
+                    findNavController().navigate(R.id.action_loginFragment_to_mainDoctorFragment)
+                }
+            }
+            is State.Error -> {
+                Toast.makeText(
+                    context,
+                    "Login failed",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
-
 }
