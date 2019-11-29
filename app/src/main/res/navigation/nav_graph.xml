@@ -39,9 +39,16 @@
         <action
             android:id="@+id/action_mainDoctorFragment_to_measurementsHistoryFragment"
             app:destination="@id/measurementsHistoryFragment" />
+        <action
+            android:id="@+id/action_mainDoctorFragment_to_addPatientFragment"
+            app:destination="@id/addPatientFragment" />
     </fragment>
     <fragment
         android:id="@+id/measurementsHistoryFragment"
         android:name="com.example.e_kartygorczkowe.doctor.measurementsHistory.MeasurementsHistoryFragment"
         android:label="MeasurementsHistoryFragment" />
+    <fragment
+        android:id="@+id/addPatientFragment"
+        android:name="com.example.e_kartygorczkowe.doctor.addPatient.AddPatientFragment"
+        android:label="AddPatientFragment" />
 </navigation>

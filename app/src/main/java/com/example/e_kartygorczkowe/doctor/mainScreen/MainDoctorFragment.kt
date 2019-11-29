@@ -36,6 +36,9 @@ class MainDoctorFragment : Fragment() {
         binding.btnMeasurementsHistory.setOnClickListener {
             findNavController().navigate(R.id.action_mainDoctorFragment_to_measurementsHistoryFragment)
         }
+        binding.btnAddPatient.setOnClickListener {
+            findNavController().navigate(R.id.action_mainDoctorFragment_to_addPatientFragment)
+        }
     }
 
 }

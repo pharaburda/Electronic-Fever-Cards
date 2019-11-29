@@ -5,6 +5,7 @@ import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import timber.log.Timber
@@ -71,6 +72,21 @@ class FirebaseRepository {
                     Timber.e(exception)
                     emitter.onError(exception)
                 }
+        }
+
+    fun addPatient(patient: Patient): Completable =
+        Completable.create { emitter ->
+            dbInstance.collection("Patients")
+                .add(patient)
+                .addOnSuccessListener { documentReference ->
+                    Timber.d("DocumentSnapshot added with ID: ${documentReference.id}")
+                    emitter.onComplete()
+                }
+                .addOnFailureListener { e ->
+                    Timber.e(e)
+                    emitter.onError(e)
+                }
+
         }
 
 }
