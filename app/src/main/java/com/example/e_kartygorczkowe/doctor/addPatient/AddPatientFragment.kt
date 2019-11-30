@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.e_kartygorczkowe.MainActivity
 
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.AddPatientFragmentBinding
@@ -31,8 +32,10 @@ class AddPatientFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.add_patient_fragment, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.add_patient_fragment, container, false
+        )
         return binding.root
     }
 
@@ -65,6 +68,22 @@ class AddPatientFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Toast.makeText(
+            context,
+            "On resume",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        if ((activity as MainActivity).tagId != null) {
+            binding.textviewScanPatient.text = "Patient is recognized"
+            this.patient.id = (activity as MainActivity).tagId!!
+        }
+
     }
 
 }
