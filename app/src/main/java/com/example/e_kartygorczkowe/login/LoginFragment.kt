@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.LoginFragmentBinding
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
-import com.example.e_kartygorczkowe.extension.hideKeyboard
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class LoginFragment : Fragment() {
 
@@ -39,13 +38,14 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+
+        viewModel.state = PublishSubject.create()
         viewModel.state.subscribe {onStateChanged(it)}
 
         this.user = User()
         binding.user = this.user
 
         binding.btnLogin.setOnClickListener {
-            binding.root.hideKeyboard()
             viewModel.login(user)
         }
     }

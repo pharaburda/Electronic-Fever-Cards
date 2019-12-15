@@ -19,6 +19,9 @@ class RegisterViewModel : ViewModel() {
     }
 
     fun register(user: User) {
+        user.email.trimEnd()
+        user.password.trimEnd()
+
         authenticationRepository.register(user)
             .subscribe(
                 object : MaybeObserver<String> {

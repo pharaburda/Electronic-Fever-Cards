@@ -77,6 +77,7 @@ class AddPatientFragment : Fragment() {
 
         if ((activity as MainActivity).tagId != null) {
             binding.textviewScanPatient.text = "Patient is recognized"
+            binding.imgScan.setImageResource(R.drawable.ok)
             this.patient.id = (activity as MainActivity).tagId!!
         }
     }

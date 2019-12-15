@@ -14,7 +14,6 @@ import com.example.e_kartygorczkowe.entity.User
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.e_kartygorczkowe.entity.State
-import com.example.e_kartygorczkowe.extension.hideKeyboard
 
 class RegisterFragment : Fragment() {
 
@@ -44,7 +43,6 @@ class RegisterFragment : Fragment() {
         })
         binding.user = this.user
         binding.btnRegister.setOnClickListener {
-            binding.root.hideKeyboard()
             viewModel.register(user)
         }
     }

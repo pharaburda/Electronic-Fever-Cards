@@ -52,7 +52,7 @@ class IdReaderActivity : AppCompatActivity() {
         val intent = intent
         val action = intent.action
 
-        if (NfcAdapter.ACTION_TAG_DISCOVERED == action) {
+        if (NfcAdapter.ACTION_TECH_DISCOVERED == action) {
             val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
             tag?.let {
                 Timber.d(tag.id.toString())

@@ -42,7 +42,7 @@ class MainDoctorFragment : Fragment() {
         }
         binding.btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
     }
 

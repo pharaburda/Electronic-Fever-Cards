@@ -12,9 +12,12 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 class LoginViewModel : ViewModel() {
     private val databaseRepository: DatabaseRepository = DatabaseRepository()
     private val authenticationRepository: AuthenticationRepository = AuthenticationRepository()
-    val state: PublishSubject<State> = PublishSubject.create()
+    var state: PublishSubject<State> = PublishSubject.create()
 
     fun login(user: User) {
+        user.email.trimEnd()
+        user.password.trimEnd()
+
         authenticationRepository.login(user)
             .subscribe(
                 object : MaybeObserver<String> {
