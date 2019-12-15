@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:gravity="center"
-            android:text="Login" />
+            android:text="Email adress" />
 
         <EditText
             android:id="@+id/editText_login"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="30dp"
             android:imeOptions="actionNext"
             android:singleLine="true"
-            android:text="@={user.login}"/>
+            android:text="@={user.email}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -51,8 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:imeOptions="actionNext"
+            android:inputType="textPassword"
             android:singleLine="true"
-            android:text="@={user.password}"/>
+            android:text="@={user.password}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -67,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:entries="@array/user_types"
-            android:onItemSelected="@{(parent,view,pos,id)->user.onSelectItem(parent,view,pos,id)}"
-            android:gravity="center" />
+            android:gravity="center"
+            android:onItemSelected="@{(parent,view,pos,id)->user.onSelectItem(parent,view,pos,id)}" />
 
         <Button
             android:id="@+id/btn_login"

@@ -5,12 +5,11 @@ import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import timber.log.Timber
 
-class FirebaseRepository {
+class DatabaseRepository {
     private val dbInstance: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun addUser(user: User): Completable =
@@ -34,15 +33,14 @@ class FirebaseRepository {
 
         }
 
-    fun login(user: User): Maybe<User> = Maybe.create { emitter ->
+    fun login(user: User, id: String): Maybe<User> = Maybe.create { emitter ->
         val collectionPath = when (user.userType) {
             UserType.Doctor -> "Doctors"
             UserType.Nurse -> "Nurser"
             UserType.None -> ""
         }
         dbInstance.collection(collectionPath)
-            .whereEqualTo("login", user.login)
-            .whereEqualTo("password", user.password)
+            .whereEqualTo("id", id)
             .get()
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {

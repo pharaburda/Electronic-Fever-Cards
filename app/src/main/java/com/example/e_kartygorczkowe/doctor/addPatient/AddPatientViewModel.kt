@@ -4,14 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.State
-import com.example.e_kartygorczkowe.entity.User
-import com.example.e_kartygorczkowe.repository.FirebaseRepository
+import com.example.e_kartygorczkowe.repository.DatabaseRepository
 import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.observers.DisposableMaybeObserver
 
 class AddPatientViewModel : ViewModel() {
-    private val repository: FirebaseRepository = FirebaseRepository()
+    private val repository: DatabaseRepository = DatabaseRepository()
     val state: MutableLiveData<State> by lazy {
         MutableLiveData<State>()
     }
