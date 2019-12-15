@@ -11,7 +11,7 @@ data class User (
     var surname: String = "",
     var id: String = ""
 ) {
-    fun onSelectItem(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+    fun onSelectItem(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         this.userType = UserType.valueOf(parent.selectedItem as String)
     }
 }

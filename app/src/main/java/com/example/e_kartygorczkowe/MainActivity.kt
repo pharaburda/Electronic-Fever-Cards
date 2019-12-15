@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import android.widget.Toast
 import android.content.Intent
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navigationController: NavController
@@ -20,12 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         tagId = intent.extras?.getString("tagId")
-
-        Toast.makeText(
-            this,
-            "$tagId",
-            Toast.LENGTH_SHORT
-        ).show()
+        Timber.d("Got tag with id $tagId")
     }
 
     override fun onNewIntent(intent: Intent) {

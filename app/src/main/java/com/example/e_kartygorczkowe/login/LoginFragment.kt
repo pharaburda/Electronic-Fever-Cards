@@ -15,6 +15,7 @@ import com.example.e_kartygorczkowe.databinding.LoginFragmentBinding
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.User
 import com.example.e_kartygorczkowe.entity.UserType
+import com.example.e_kartygorczkowe.extension.hideKeyboard
 
 class LoginFragment : Fragment() {
 
@@ -38,11 +39,15 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        viewModel.state.observe(this, Observer<State> { state ->
-            onStateChanged(state)
-        })
+        viewModel.state.subscribe {onStateChanged(it)}
+
+        this.user = User()
         binding.user = this.user
-        binding.btnLogin.setOnClickListener { viewModel.login(user) }
+
+        binding.btnLogin.setOnClickListener {
+            binding.root.hideKeyboard()
+            viewModel.login(user)
+        }
     }
 
     private fun onStateChanged(state: State) {

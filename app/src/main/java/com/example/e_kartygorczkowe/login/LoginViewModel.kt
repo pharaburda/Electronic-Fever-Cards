@@ -1,6 +1,5 @@
 package com.example.e_kartygorczkowe.login
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.entity.User
@@ -8,13 +7,12 @@ import com.example.e_kartygorczkowe.repository.AuthenticationRepository
 import com.example.e_kartygorczkowe.repository.DatabaseRepository
 import io.reactivex.rxjava3.core.MaybeObserver
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class LoginViewModel : ViewModel() {
     private val databaseRepository: DatabaseRepository = DatabaseRepository()
     private val authenticationRepository: AuthenticationRepository = AuthenticationRepository()
-    val state: MutableLiveData<State> by lazy {
-        MutableLiveData<State>()
-    }
+    val state: PublishSubject<State> = PublishSubject.create()
 
     fun login(user: User) {
         authenticationRepository.login(user)
@@ -27,11 +25,11 @@ class LoginViewModel : ViewModel() {
                     }
 
                     override fun onComplete() {
-                        state.value = State.Error
+                        state.onNext(State.Error)
                     }
 
                     override fun onError(e: Throwable?) {
-                        state.value = State.Error
+                        state.onNext(State.Error)
                     }
 
                     override fun onSubscribe(d: Disposable?) {
@@ -46,15 +44,15 @@ class LoginViewModel : ViewModel() {
         .subscribe(
             object : MaybeObserver<User> {
                 override fun onSuccess(t: User?) {
-                    state.value = State.Success
+                    state.onNext(State.Success)
                 }
 
                 override fun onComplete() {
-                    state.value = State.Error
+                    state.onNext(State.Error)
                 }
 
                 override fun onError(e: Throwable?) {
-                    state.value = State.Error
+                    state.onNext(State.Error)
                 }
 
                 override fun onSubscribe(d: Disposable?) {

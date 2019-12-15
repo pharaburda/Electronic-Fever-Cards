@@ -67,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:imeOptions="actionNext"
             android:entries="@array/user_types"
             android:gravity="center"
             android:onItemSelected="@{(parent,view,pos,id)->user.onSelectItem(parent,view,pos,id)}" />

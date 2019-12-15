@@ -41,6 +41,7 @@ class AddPatientFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as MainActivity).tagId = null
         viewModel = ViewModelProviders.of(this).get(AddPatientViewModel::class.java)
         viewModel.state.observe(this, Observer<State> { state ->
             onStateChanged(state)
@@ -59,6 +60,7 @@ class AddPatientFragment : Fragment() {
                     "Adding patient succeded",
                     Toast.LENGTH_SHORT
                 ).show()
+                findNavController().popBackStack()
             }
             is State.Error -> {
                 Toast.makeText(
@@ -73,17 +75,9 @@ class AddPatientFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        Toast.makeText(
-            context,
-            "On resume",
-            Toast.LENGTH_SHORT
-        ).show()
-
         if ((activity as MainActivity).tagId != null) {
             binding.textviewScanPatient.text = "Patient is recognized"
             this.patient.id = (activity as MainActivity).tagId!!
         }
-
     }
-
 }

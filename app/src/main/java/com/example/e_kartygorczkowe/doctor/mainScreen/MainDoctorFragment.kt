@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.MainDoctorFragmentBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainDoctorFragment : Fragment() {
 
@@ -38,6 +39,10 @@ class MainDoctorFragment : Fragment() {
         }
         binding.btnAddPatient.setOnClickListener {
             findNavController().navigate(R.id.action_mainDoctorFragment_to_addPatientFragment)
+        }
+        binding.btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            findNavController().navigateUp()
         }
     }
 
