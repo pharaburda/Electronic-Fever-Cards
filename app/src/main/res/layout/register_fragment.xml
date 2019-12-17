@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="40dp"
                 android:gravity="center"
-                android:text="Hi new user, you need to register first" />
+                android:text="Register using existing email adress and password." />
 
             <TextView
                 android:layout_width="match_parent"

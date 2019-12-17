@@ -87,4 +87,22 @@ class DatabaseRepository {
 
         }
 
+    fun checkIfPatientExists(id: String): Maybe<Boolean> =
+        Maybe.create { emitter ->
+            dbInstance.collection("Patients")
+                .whereEqualTo("id", id)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.isEmpty) {
+                        emitter.onComplete()
+                    } else {
+                        emitter.onSuccess(true)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Timber.e(exception)
+                    emitter.onError(exception)
+                }
+        }
+
 }

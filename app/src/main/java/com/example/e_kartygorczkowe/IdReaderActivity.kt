@@ -8,6 +8,11 @@ import android.widget.Button
 import android.widget.Toast
 import timber.log.Timber
 import android.content.Intent
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import kotlin.experimental.and
+
 
 class IdReaderActivity : AppCompatActivity() {
     private var nfcAdapter: NfcAdapter? = null
@@ -55,9 +60,13 @@ class IdReaderActivity : AppCompatActivity() {
         if (NfcAdapter.ACTION_TECH_DISCOVERED == action) {
             val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
             tag?.let {
-                Timber.d(tag.id.toString())
-                tagId = tag.id.toString()
+                Timber.d(tag.id.toHexString())
+                tagId = tag.id.toHexString()
             }
         }
+    }
+
+    private fun ByteArray.toHexString() : String = this.joinToString("") {
+        java.lang.String.format("%02x", it)
     }
 }

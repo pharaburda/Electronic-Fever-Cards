@@ -50,7 +50,6 @@ class RegisterViewModel : ViewModel() {
         databaseRepository.addUser(
             User(
                 userType = user.userType,
-                email = user.email,
                 name = user.name,
                 surname = user.surname,
                 id = id

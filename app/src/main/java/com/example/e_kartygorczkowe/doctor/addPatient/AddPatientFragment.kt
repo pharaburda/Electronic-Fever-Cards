@@ -46,9 +46,26 @@ class AddPatientFragment : Fragment() {
         viewModel.state.observe(this, Observer<State> { state ->
             onStateChanged(state)
         })
+        viewModel.patientExists.observe(this, Observer<Boolean> {patientExists ->
+            onPatientChecked(patientExists)
+        })
         binding.patient = this.patient
         binding.btnAddPatient.setOnClickListener {
             viewModel.addPatient(patient)
+        }
+    }
+
+    private fun onPatientChecked(exists: Boolean) {
+        if (exists) {
+            Toast.makeText(
+                context,
+                "Patient with this id already exists",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            binding.textviewScanPatient.text = "Patient is recognized"
+            binding.imgScan.setImageResource(R.drawable.ok)
+            this.patient.id = (activity as MainActivity).tagId!!
         }
     }
 
@@ -74,11 +91,8 @@ class AddPatientFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        if ((activity as MainActivity).tagId != null) {
-            binding.textviewScanPatient.text = "Patient is recognized"
-            binding.imgScan.setImageResource(R.drawable.ok)
-            this.patient.id = (activity as MainActivity).tagId!!
+        (activity as MainActivity).tagId?.let { tagId ->
+            viewModel.checkIfPatientWithIdExists(tagId)
         }
     }
 }
