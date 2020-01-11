@@ -36,7 +36,7 @@ class MainNurseFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainNurseViewModel::class.java)
 
         binding.btnPatientMeasurementsHistory.setOnClickListener {
-            findNavController().navigate(R.id.action_mainNurseFragment_to_patientHistoryFragment)
+            findNavController().navigate(R.id.action_mainNurseFragment_to_scanPatientFragment)
         }
 
         binding.btnAddMeasurement.setOnClickListener {

@@ -72,6 +72,24 @@ class DatabaseRepository {
                 }
         }
 
+    fun getMeasurementsHistory(patientId: String): Maybe<List<Measurement>> =
+        Maybe.create { emitter ->
+            dbInstance.collection("Measurements")
+                .whereEqualTo("patientId", patientId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.isEmpty) {
+                        emitter.onComplete()
+                    } else {
+                        emitter.onSuccess(documents.toObjects(Measurement::class.java))
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Timber.e(exception)
+                    emitter.onError(exception)
+                }
+        }
+
     fun addPatient(patient: Patient): Completable =
         Completable.create { emitter ->
             dbInstance.collection("Patients")

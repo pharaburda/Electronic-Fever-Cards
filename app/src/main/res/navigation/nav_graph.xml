@@ -64,14 +64,23 @@
             android:id="@+id/action_mainNurseFragment_to_addMeasurementFragment"
             app:destination="@id/addMeasurementFragment" />
         <action
-            android:id="@+id/action_mainNurseFragment_to_patientHistoryFragment"
-            app:destination="@id/patientHistoryFragment" />
+            android:id="@+id/action_mainNurseFragment_to_scanPatientFragment"
+            app:destination="@id/scanPatientFragment" />
     </fragment>
     <fragment
         android:id="@+id/addMeasurementFragment"
         android:name="com.example.e_kartygorczkowe.nurse.addmeasurement.AddMeasurementFragment"
         android:label="add_measurement_fragment"
         tools:layout="@layout/add_measurement_fragment" />
+    <fragment
+        android:id="@+id/scanPatientFragment"
+        android:name="com.example.e_kartygorczkowe.nurse.patientHistory.ScanPatientFragment"
+        android:label="ScanPatientFragment" >
+        <action
+            android:id="@+id/action_scanPatientFragment_to_patientHistoryFragment"
+            app:destination="@id/patientHistoryFragment"
+            app:popUpTo="@+id/mainNurseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/patientHistoryFragment"
         android:name="com.example.e_kartygorczkowe.nurse.patientHistory.PatientHistoryFragment"
