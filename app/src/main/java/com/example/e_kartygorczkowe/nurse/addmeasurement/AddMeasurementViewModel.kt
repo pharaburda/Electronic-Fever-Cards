@@ -3,6 +3,7 @@ package com.example.e_kartygorczkowe.nurse.addmeasurement
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.e_kartygorczkowe.entity.Measurement
+import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.State
 import com.example.e_kartygorczkowe.repository.DatabaseRepository
 import io.reactivex.rxjava3.core.CompletableObserver
@@ -15,8 +16,8 @@ class AddMeasurementViewModel : ViewModel() {
         MutableLiveData<State>()
     }
 
-    val patientExists: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+    val patient: MutableLiveData<Patient?> by lazy {
+        MutableLiveData<Patient?>()
     }
 
     fun addMeasurement(measurement: Measurement) {
@@ -37,11 +38,11 @@ class AddMeasurementViewModel : ViewModel() {
         )
     }
 
-    fun checkIfPatientWithIdExists(id: String) {
-        repository.checkIfPatientExists(id).subscribe(
-            object : MaybeObserver<Boolean> {
-                override fun onSuccess(t: Boolean?) {
-                    patientExists.value = true
+    fun getPatient(id: String) {
+        repository.getPatientWithId(id).subscribe(
+            object : MaybeObserver<Patient> {
+                override fun onSuccess(t: Patient?) {
+                    patient.value = t
                 }
 
                 override fun onSubscribe(d: Disposable?) {
@@ -49,11 +50,11 @@ class AddMeasurementViewModel : ViewModel() {
                 }
 
                 override fun onComplete() {
-                    patientExists.value = false
+                    patient.value = null
                 }
 
                 override fun onError(e: Throwable?) {
-                    patientExists.value = false
+                    patient.value = null
                 }
             }
         )

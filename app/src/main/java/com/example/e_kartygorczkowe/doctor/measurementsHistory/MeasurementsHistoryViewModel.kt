@@ -7,6 +7,7 @@ import com.example.e_kartygorczkowe.repository.DatabaseRepository
 import io.reactivex.rxjava3.observers.DisposableMaybeObserver
 import timber.log.Timber
 
+
 class MeasurementsHistoryViewModel : ViewModel() {
 
     private val repository: DatabaseRepository = DatabaseRepository()

@@ -70,7 +70,7 @@ class MeasurementsHistoryFragment : Fragment() {
             holder.temperature.text = items[position].temperature.toString()
             holder.timeStamp.text = items[position].timestamp?.toDate().toString()
             // todo get their names, not ids
-            holder.patientName.text = items[position].patientId
+            holder.patientName.text = items[position].patient.name
             holder.nurseName.text = items[position].nurseId
         }
 

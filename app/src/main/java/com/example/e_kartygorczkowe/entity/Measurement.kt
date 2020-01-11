@@ -6,5 +6,5 @@ data class Measurement (
     var timestamp: Timestamp? = Timestamp.now(),
     var temperature: String? = "0",
     var nurseId: String = "",
-    var patientId: String = ""
+    var patient: Patient = Patient()
 )

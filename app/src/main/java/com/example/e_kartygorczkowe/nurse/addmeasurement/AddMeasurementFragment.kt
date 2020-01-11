@@ -15,6 +15,7 @@ import com.example.e_kartygorczkowe.MainActivity
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.AddMeasurementFragmentBinding
 import com.example.e_kartygorczkowe.entity.Measurement
+import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.State
 import com.google.firebase.Timestamp
 
@@ -47,8 +48,8 @@ class AddMeasurementFragment : Fragment() {
         viewModel.state.observe(this, Observer<State> { state ->
             onStateChanged(state)
         })
-        viewModel.patientExists.observe(this, Observer<Boolean> {patientExists ->
-            onPatientChecked(patientExists)
+        viewModel.patient.observe(this, Observer<Patient?> {patient ->
+            onPatientChecked(patient)
         })
         binding.measurement = this.measurement
         binding.btnAddMeasurement.setOnClickListener {
@@ -57,11 +58,11 @@ class AddMeasurementFragment : Fragment() {
         }
     }
 
-    private fun onPatientChecked(exists: Boolean) {
-        if (exists) {
+    private fun onPatientChecked(patient: Patient?) {
+        if (patient != null) {
             binding.textviewScanPatient.text = "Patient is recognized"
             binding.imgScan.setImageResource(R.drawable.ok)
-            this.measurement.patientId = (activity as MainActivity).tagId!!
+            this.measurement.patient = patient
         } else {
             Toast.makeText(
                 context,
@@ -94,7 +95,7 @@ class AddMeasurementFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).tagId?.let { tagId ->
-            viewModel.checkIfPatientWithIdExists(tagId)
+            viewModel.getPatient(tagId)
         }
     }
 

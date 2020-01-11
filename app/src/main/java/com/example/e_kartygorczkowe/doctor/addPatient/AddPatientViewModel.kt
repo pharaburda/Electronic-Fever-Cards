@@ -38,9 +38,9 @@ class AddPatientViewModel : ViewModel() {
     }
 
     fun checkIfPatientWithIdExists(id: String) {
-        repository.checkIfPatientExists(id).subscribe(
-            object : MaybeObserver<Boolean> {
-                override fun onSuccess(t: Boolean?) {
+        repository.getPatientWithId(id).subscribe(
+            object : MaybeObserver<Patient> {
+                override fun onSuccess(t: Patient?) {
                     patientExists.value = true
                 }
 

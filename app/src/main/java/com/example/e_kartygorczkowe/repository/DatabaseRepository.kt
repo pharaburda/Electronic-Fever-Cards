@@ -75,7 +75,7 @@ class DatabaseRepository {
     fun getMeasurementsHistory(patientId: String): Maybe<List<Measurement>> =
         Maybe.create { emitter ->
             dbInstance.collection("Measurements")
-                .whereEqualTo("patientId", patientId)
+                .whereEqualTo("patient.id", patientId)
                 .get()
                 .addOnSuccessListener { documents ->
                     if (documents.isEmpty) {
@@ -105,7 +105,7 @@ class DatabaseRepository {
 
         }
 
-    fun checkIfPatientExists(id: String): Maybe<Boolean> =
+    fun getPatientWithId(id: String): Maybe<Patient> =
         Maybe.create { emitter ->
             dbInstance.collection("Patients")
                 .whereEqualTo("id", id)
@@ -114,7 +114,7 @@ class DatabaseRepository {
                     if (documents.isEmpty) {
                         emitter.onComplete()
                     } else {
-                        emitter.onSuccess(true)
+                        emitter.onSuccess(documents.first().toObject(Patient::class.java))
                     }
                 }
                 .addOnFailureListener { exception ->
