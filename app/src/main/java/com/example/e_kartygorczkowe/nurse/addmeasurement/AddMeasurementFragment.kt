@@ -17,6 +17,7 @@ import com.example.e_kartygorczkowe.databinding.AddMeasurementFragmentBinding
 import com.example.e_kartygorczkowe.entity.Measurement
 import com.example.e_kartygorczkowe.entity.Patient
 import com.example.e_kartygorczkowe.entity.State
+import com.example.e_kartygorczkowe.entity.User
 import com.google.firebase.Timestamp
 
 class AddMeasurementFragment : Fragment() {
@@ -54,6 +55,7 @@ class AddMeasurementFragment : Fragment() {
         binding.measurement = this.measurement
         binding.btnAddMeasurement.setOnClickListener {
             this.measurement.timestamp = Timestamp.now()
+            this.measurement.nurse = (activity as MainActivity).user ?: User()
             viewModel.addMeasurement(this.measurement)
         }
     }

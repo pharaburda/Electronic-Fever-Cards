@@ -38,7 +38,7 @@ class RegisterFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
-        viewModel.state.observe(this, Observer<State> { state ->
+        viewModel.state.observe(this, Observer<Pair<State, String>> { state ->
             onStateChanged(state)
         })
         binding.user = this.user
@@ -47,7 +47,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun onStateChanged(state: State) = when (state) {
+    private fun onStateChanged(state: Pair<State, String>) = when (state.first) {
         is State.Success -> {
             Toast.makeText(
                 context,
@@ -61,7 +61,7 @@ class RegisterFragment : Fragment() {
         is State.Error -> {
             Toast.makeText(
                 context,
-                "Some error occurred",
+                state.second,
                 Toast.LENGTH_SHORT
             ).show()
         }

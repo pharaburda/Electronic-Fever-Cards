@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.example.e_kartygorczkowe.MainActivity
 import com.example.e_kartygorczkowe.R
 import com.example.e_kartygorczkowe.databinding.LoginFragmentBinding
 import com.example.e_kartygorczkowe.entity.State
@@ -50,14 +51,15 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun onStateChanged(state: State) {
-        when (state) {
+    private fun onStateChanged(state: Pair<State, User>) {
+        when (state.first) {
             is State.Success -> {
                 Toast.makeText(
                     context,
                     "Login succeded",
                     Toast.LENGTH_SHORT
                 ).show()
+                (activity as MainActivity).user = state.second
                 if (this.user.userType == UserType.Doctor) {
                     findNavController().navigate(R.id.action_loginFragment_to_mainDoctorFragment)
                 }

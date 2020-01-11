@@ -55,6 +55,35 @@ class DatabaseRepository {
             }
     }
 
+    fun getUserWithId(id: String): Maybe<User> = Maybe.create { emitter ->
+        dbInstance.collection("Doctors")
+            .whereEqualTo("id", id)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    emitter.onSuccess(documents.first().toObject(User::class.java))
+                }
+            }
+            .addOnFailureListener { exception ->
+                Timber.e(exception)
+                emitter.onError(exception)
+            }
+
+        dbInstance.collection("Nurses")
+            .whereEqualTo("id", id)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    emitter.onSuccess(documents.first().toObject(User::class.java))
+                }
+            }
+            .addOnFailureListener { exception ->
+                Timber.e(exception)
+                emitter.onError(exception)
+            }
+
+    }
+
     fun getMeasurementsHistory(): Maybe<List<Measurement>> =
         Maybe.create { emitter ->
             dbInstance.collection("Measurements")

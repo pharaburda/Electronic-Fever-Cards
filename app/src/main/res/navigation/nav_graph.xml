@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chooseUserFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/chooseUserFragment"
@@ -86,4 +86,25 @@
         android:name="com.example.e_kartygorczkowe.nurse.patientHistory.PatientHistoryFragment"
         android:label="patient_history_fragment"
         tools:layout="@layout/patient_history_fragment" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.e_kartygorczkowe.splashscreen.SplashScreenFragment"
+        android:label="splash_screen_fragment"
+        tools:layout="@layout/splash_screen_fragment" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_chooseUserFragment"
+            app:destination="@id/chooseUserFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainDoctorFragment"
+            app:destination="@id/mainDoctorFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainNurseFragment"
+            app:destination="@id/mainNurseFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

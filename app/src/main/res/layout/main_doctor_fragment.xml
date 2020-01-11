@@ -8,6 +8,13 @@
         android:orientation="vertical"
         tools:context=".doctor.mainScreen.MainDoctorFragment">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doctor Panel"
+            android:textSize="20sp"
+            android:layout_marginBottom="100dp"/>
+
         <Button
             android:id="@+id/btn_add_patient"
             android:layout_width="wrap_content"

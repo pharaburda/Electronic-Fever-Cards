@@ -10,12 +10,13 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.core.MaybeObserver
 import io.reactivex.rxjava3.disposables.Disposable
+import timber.log.Timber
 
 class RegisterViewModel : ViewModel() {
     private val databaseRepository: DatabaseRepository = DatabaseRepository()
     private val authenticationRepository: AuthenticationRepository = AuthenticationRepository()
-    val state: MutableLiveData<State> by lazy {
-        MutableLiveData<State>()
+    val state: MutableLiveData<Pair<State, String>> by lazy {
+        MutableLiveData<Pair<State, String>>()
     }
 
     fun register(user: User) {
@@ -32,11 +33,12 @@ class RegisterViewModel : ViewModel() {
                     }
 
                     override fun onComplete() {
-                        state.value = State.Error
+                        // do nothing
                     }
 
                     override fun onError(e: Throwable?) {
-                        state.value = State.Error
+                        Timber.d(e)
+                        state.value = Pair(State.Error, e?.message ?: "")
                     }
 
                     override fun onSubscribe(d: Disposable?) {
@@ -57,11 +59,11 @@ class RegisterViewModel : ViewModel() {
         ).subscribe(
             object : CompletableObserver {
                 override fun onComplete() {
-                    state.value = State.Success
+                    state.value = Pair(State.Success, "")
                 }
 
                 override fun onError(e: Throwable?) {
-                    state.value = State.Error
+                    state.value = Pair(State.Error, e?.message ?: "")
                 }
 
                 override fun onSubscribe(d: Disposable?) {

@@ -6,11 +6,13 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import android.widget.Toast
 import android.content.Intent
+import com.example.e_kartygorczkowe.entity.User
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navigationController: NavController
     var tagId: String? = null
+    var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

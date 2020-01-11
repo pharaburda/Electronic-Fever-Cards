@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 class LoginViewModel : ViewModel() {
     private val databaseRepository: DatabaseRepository = DatabaseRepository()
     private val authenticationRepository: AuthenticationRepository = AuthenticationRepository()
-    var state: PublishSubject<State> = PublishSubject.create()
+    var state: PublishSubject<Pair<State,User>> = PublishSubject.create()
 
     fun login(user: User) {
         user.email.trimEnd()
@@ -28,11 +28,11 @@ class LoginViewModel : ViewModel() {
                     }
 
                     override fun onComplete() {
-                        state.onNext(State.Error)
+                        state.onNext(Pair(State.Error, User()))
                     }
 
                     override fun onError(e: Throwable?) {
-                        state.onNext(State.Error)
+                        state.onNext(Pair(State.Error, User()))
                     }
 
                     override fun onSubscribe(d: Disposable?) {
@@ -46,16 +46,16 @@ class LoginViewModel : ViewModel() {
         databaseRepository.login(user, id)
         .subscribe(
             object : MaybeObserver<User> {
-                override fun onSuccess(t: User?) {
-                    state.onNext(State.Success)
+                override fun onSuccess(t: User) {
+                    this@LoginViewModel.state.onNext(Pair(State.Success, t))
                 }
 
                 override fun onComplete() {
-                    state.onNext(State.Error)
+                    // do nothing
                 }
 
                 override fun onError(e: Throwable?) {
-                    state.onNext(State.Error)
+                    // do nothing
                 }
 
                 override fun onSubscribe(d: Disposable?) {
