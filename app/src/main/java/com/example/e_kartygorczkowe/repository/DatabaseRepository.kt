@@ -36,7 +36,7 @@ class DatabaseRepository {
     fun login(user: User, id: String): Maybe<User> = Maybe.create { emitter ->
         val collectionPath = when (user.userType) {
             UserType.Doctor -> "Doctors"
-            UserType.Nurse -> "Nurser"
+            UserType.Nurse -> "Nurses"
             UserType.None -> ""
         }
         dbInstance.collection(collectionPath)
@@ -103,6 +103,21 @@ class DatabaseRepository {
                     Timber.e(exception)
                     emitter.onError(exception)
                 }
+        }
+
+    fun addMeasaurement(measurement: Measurement): Completable =
+        Completable.create { emitter ->
+            dbInstance.collection("Measurements")
+                .add(measurement)
+                .addOnSuccessListener { documentReference ->
+                    Timber.d("DocumentSnapshot added with ID: ${documentReference.id}")
+                    emitter.onComplete()
+                }
+                .addOnFailureListener { e ->
+                    Timber.e(e)
+                    emitter.onError(e)
+                }
+
         }
 
 }

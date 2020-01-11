@@ -61,6 +61,9 @@ class LoginFragment : Fragment() {
                 if (this.user.userType == UserType.Doctor) {
                     findNavController().navigate(R.id.action_loginFragment_to_mainDoctorFragment)
                 }
+                if (this.user.userType == UserType.Nurse) {
+                    findNavController().navigate(R.id.action_loginFragment_to_mainNurseFragment)
+                }
             }
             is State.Error -> {
                 Toast.makeText(

@@ -69,8 +69,9 @@ class MeasurementsHistoryFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.temperature.text = items[position].temperature.toString()
             holder.timeStamp.text = items[position].timestamp?.toDate().toString()
-            holder.patientName.text = items[position].patient?.name
-            holder.nurseName.text = items[position].nurse?.name
+            // todo get their names, not ids
+            holder.patientName.text = items[position].patientId
+            holder.nurseName.text = items[position].nurseId
         }
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
